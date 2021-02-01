@@ -49,22 +49,28 @@ function Inventory({ status, addProduct }) {
               slider={slider}
               setData={setMainInfo}
               setProgress={setProgressPoint}
+              mainInfo={mainInfo}
             />
             <Specifications
               slider={slider}
               setData={setSpecForm}
               setProgress={setProgressPoint}
+              specForm={specForm}
             />
             <AddPhotos
               slider={slider}
               setProgress={setProgressPoint}
               setData={setPhotos}
+              photos={photos}
             />
             <Finalize
               slider={slider}
               setStatus={setProgressStatus}
               setProgress={setProgressPoint}
               formCosolidate={formCosolidate}
+              mainInfo={mainInfo}
+              specForm={specForm}
+              photos={photos}
             />
           </Carousel>
         </div>

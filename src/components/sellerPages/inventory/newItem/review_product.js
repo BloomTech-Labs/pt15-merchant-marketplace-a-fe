@@ -3,7 +3,15 @@ import PopContent from './popContent';
 import ProductInfo from '../../../pages/ProductInfo/ProductInfo';
 import FormButton from '../../../common/FormButton/FormButton';
 
-function Finalize({ setProgress, slider, formCosolidate, setStatus }) {
+function Finalize({
+  setProgress,
+  slider,
+  formCosolidate,
+  setStatus,
+  mainInfo,
+  specForm,
+  photos,
+}) {
   const formConfirm = () => {
     formCosolidate();
   };
@@ -19,7 +27,12 @@ function Finalize({ setProgress, slider, formCosolidate, setStatus }) {
   };
   return (
     <div className="contents">
-      <ProductInfo />
+      <ProductInfo
+        item={''}
+        photos={photos}
+        mainInfo={mainInfo}
+        specForm={specForm}
+      />
       <FormButton
         setProgress={setProgress}
         slider={slider}
