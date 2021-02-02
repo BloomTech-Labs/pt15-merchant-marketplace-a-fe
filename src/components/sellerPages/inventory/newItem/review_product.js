@@ -3,6 +3,14 @@ import PopContent from './popContent';
 import ProductInfo from '../../../pages/ProductInfo/ProductInfo';
 import FormButton from '../../../common/FormButton/FormButton';
 
+const initialItem = {
+  item_name: '',
+  description: '',
+  price_in_cents: 0,
+  quantity_available: 0,
+  published: false,
+};
+
 function Finalize({
   setProgress,
   slider,
@@ -28,7 +36,7 @@ function Finalize({
   return (
     <div className="contents">
       <ProductInfo
-        item={''}
+        item={initialItem}
         photos={photos}
         mainInfo={mainInfo}
         specForm={specForm}
