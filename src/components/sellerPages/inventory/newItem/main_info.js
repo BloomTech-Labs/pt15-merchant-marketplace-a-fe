@@ -60,7 +60,7 @@ function NewItem({ setProgress, slider, setData }) {
         <Form.Item name="quantity_available" label="Quantity available: ">
           <InputNumber
             placeholder="quantity_available"
-            min={1}
+            min={0}
             defaultValue={0}
             onChange={onFinish}
           />
