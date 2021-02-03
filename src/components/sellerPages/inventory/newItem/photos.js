@@ -16,7 +16,7 @@ function AddPhotos({ setProgress, slider, setData, photos }) {
     });
     dialog.done(function(file, fileGroup, list) {
       file.promise().done(function(fileInfo) {
-        setData({ ['photos']: fileInfo.originalUrl });
+        setData({ 'photos': fileInfo.originalUrl });
         console.log('fileinfo: ', fileInfo);
         addItemImage(authState, 15, fileInfo.originalUrl);
       });
