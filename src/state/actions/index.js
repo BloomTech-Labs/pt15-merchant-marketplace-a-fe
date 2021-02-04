@@ -19,6 +19,10 @@ export const ADD_ITEM_IMAGE_START = 'ADD_ITEM_IMAGE_START';
 export const ADD_ITEM_IMAGE_SUCCESS = 'ADD_ITEM_IMAGE_SUCCESS';
 export const ADD_ITEM_IMAGE_ERROR = 'ADD_ITEM_IMAGE_ERROR';
 
+export const FETCH_MY_INFO_START = 'FETCH_MY_INFO_START';
+export const FETCH_MY_INFO_SUCCESS = 'FETCH_MY_INFO_SUCCESS';
+export const FETCH_MY_INFO_ERROR = 'FETCH_MY_INFO_ERROR';
+
 export const fetchProducts = authState => dispatch => {
   let oktaStore = JSON.parse(localStorage['okta-token-storage']);
   let oktaId = oktaStore.idToken.claims.sub;
@@ -69,4 +73,17 @@ export const addProduct = (newProduct, authState) => dispatch => {
   //     dispatch({ type: ADD_PRODUCT_ERROR, payload: err });
   //   });
   dispatch({ type: ADD_PRODUCT_SUCCESS, payload: newProduct }); //This is for testing purposes
+};
+
+export const fetchMyInfo = authState => dispatch => {
+  let oktaStore = JSON.parse(localStorage['okta-token-storage']);
+  let oktaId = oktaStore.idToken.claims.sub;
+  dispatch({ type: FETCH_MY_INFO_START });
+  getProfileData()
+    .then(response => {
+      dispatch({ type: FETCH_MY_INFO_SUCCESS, payload: response });
+    })
+    .catch(err => {
+      dispatch({ type: FETCH_MY_INFO_ERROR, payload: err });
+    });
 };
