@@ -34,7 +34,7 @@ function Finalize({
         progressPercent={100}
         text="Save Product"
         review="true"
-        popContent={() => ShowPopContent(setStatus, setProgress, formConfirm)}
+        popContent={() => formConfirm()}
       />
     </div>
   );

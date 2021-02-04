@@ -13,6 +13,8 @@ import { useOktaAuth } from '@okta/okta-react';
 
 function Inventory({ status, addProduct }) {
   const { authState } = useOktaAuth();
+  let oktaStore = JSON.parse(localStorage['okta-token-storage']);
+  let seller_profile_id = oktaStore.idToken.claims.sub;
   // Final Data State
   const [newItemData, setNewItemData] = useState({});
 
@@ -23,12 +25,19 @@ function Inventory({ status, addProduct }) {
 
   const formCosolidate = () => {
     let completeObject = {
-      ...mainInfo,
-      ...specForm,
-      ...photos,
+      new_item: {
+        ...mainInfo,
+        ['seller_profile_id']: seller_profile_id,
+      },
+      spec: {
+        ...specForm,
+      },
+      photos: {
+        ...photos,
+      },
     };
     setNewItemData(completeObject); //// I will review this later, I dont think we need a state here, we can just pass the object to the addProduct action-Pedro
-    addProduct(newItemData, authState);
+    addProduct(completeObject, authState);
   };
 
   // Progress Bar Sync
