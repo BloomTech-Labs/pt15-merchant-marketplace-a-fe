@@ -15,7 +15,6 @@ const getExampleData = () => {
 };
 
 const getAuthHeader = authState => {
-  console.log('authheader', authState.idToken);
   if (!authState.isAuthenticated) {
     throw new Error('Not authenticated');
   }
