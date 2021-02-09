@@ -3,6 +3,7 @@ import {
   sleep,
   getExampleData,
   getProfileData,
+  getProfileIdData,
   getDSData,
   postData,
 } from '../../api/index';
@@ -80,7 +81,7 @@ export const fetchMyInfo = (authState, id) => dispatch => {
   let oktaStore = JSON.parse(localStorage['okta-token-storage']);
   let oktaId = oktaStore.idToken.claims.sub;
   dispatch({ type: FETCH_MY_INFO_START });
-  getProfileData(authState, id)
+  getProfileIdData(authState, id)
     .then(response => {
       console.log('res in getprofileddata', response);
       dispatch({ type: FETCH_MY_INFO_SUCCESS, payload: response });

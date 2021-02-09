@@ -7,9 +7,9 @@ import { useOktaAuth } from '@okta/okta-react';
 function MyInfo(props, { fetchMyInfo }) {
   const { authState } = useOktaAuth();
 
-  // useEffect(() => {
-  //   fetchMyInfo()
-  // })
+  useEffect(() => {
+    props.fetchMyInfo(authState, sellerId.idToken.claims.sub);
+  }, []);
 
   function clicked(event) {
     console.log('clicked in infosec');
