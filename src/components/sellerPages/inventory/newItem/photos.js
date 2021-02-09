@@ -6,18 +6,23 @@ import { LoadingOutlined, PlusOutlined } from '@ant-design/icons';
 import uploadcare from 'uploadcare-widget';
 import { addItemImage } from '../../../../state/actions';
 import { useOktaAuth } from '@okta/okta-react';
+import { Spin } from 'antd';
 
-function AddPhotos({ setProgress, slider, setItem }) {
+function AddPhotos({ setProgress, slider, setPhotos, photos }) {
   const { authState } = useOktaAuth();
+  const [loading, setLoading] = useState(false);
+
   function openUploadDialog(e) {
     let dialog = uploadcare.openDialog(null, {
       publicKey: '7f074009b333b2d5be63',
       imagesOnly: true,
     });
     dialog.done(function(file, fileGroup, list) {
+      setLoading(true);
       file.promise().done(function(fileInfo) {
+        setLoading(false);
+        setPhotos(fileInfo.originalUrl);
         console.log('fileinfo: ', fileInfo);
-        addItemImage(authState, 15, fileInfo.originalUrl);
       });
     });
   }
@@ -76,6 +81,13 @@ function AddPhotos({ setProgress, slider, setItem }) {
       >
         +
       </div>
+      {loading && (
+        <Spin
+          size="large"
+          tip="Image Loading..."
+          style={{ marginLeft: '5rem', marginTop: '2rem' }}
+        />
+      )}
 
       <FormButton
         setProgress={setProgress}

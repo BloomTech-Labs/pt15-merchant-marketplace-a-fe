@@ -36,9 +36,9 @@ const FormButton = ({
         <Button
           className="NextBtn"
           htmlType="submit"
-          onClick={() => {
-            console.log('showing pop content');
-            popContent();
+          onClick={async () => {
+            await popContent();
+            history.push('/myprofile/inventory');
           }}
         >
           {text}

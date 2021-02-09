@@ -83,7 +83,7 @@ const postData = (url, newData, authState) => {
   }
   return axios
     .post(url, newData, { headers })
-    .then(res => JSON.parse(res.data))
+    .then(res => res.data)
     .catch(err => err);
 };
 

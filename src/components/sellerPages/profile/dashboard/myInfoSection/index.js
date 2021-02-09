@@ -12,14 +12,10 @@ function MyInfo(props, { fetchMyInfo }) {
   }, []);
 
   function clicked(event) {
-    console.log('clicked in infosec');
     props.fetchMyInfo(authState, sellerId.idToken.claims.sub);
   }
-  console.log('props in mtInfoSec', props.myInfo);
 
   const sellerId = JSON.parse(localStorage.getItem('okta-token-storage'));
-  console.log('seller id', sellerId.idToken.claims.sub);
-  console.log('props.MyInfo', props.myInfo);
 
   return (
     <>
@@ -40,7 +36,6 @@ function MyInfo(props, { fetchMyInfo }) {
 }
 
 const mapStateToProps = state => {
-  console.log('state in mapstatetoprops in myinfosec', state.information);
   return {
     myInfo: state.information,
     // myName: state.information.info.seller_name,
