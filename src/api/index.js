@@ -1,7 +1,11 @@
 import axios from 'axios';
 
 // we will define a bunch of API calls here.
-const apiUrl = `${process.env.REACT_APP_API_URI}/profiles`;
+
+const sellerId = JSON.parse(localStorage.getItem('okta-token-storage'));
+console.log('seller id', sellerId.idToken.claims.sub);
+
+const apiUrl = `${process.env.REACT_APP_API_URI}/profiles/${sellerId.idToken.claims.sub}`;
 
 const sleep = time =>
   new Promise(resolve => {
@@ -15,6 +19,7 @@ const getExampleData = () => {
 };
 
 const getAuthHeader = authState => {
+  console.log('authheader', authState.idToken);
   if (!authState.isAuthenticated) {
     throw new Error('Not authenticated');
   }

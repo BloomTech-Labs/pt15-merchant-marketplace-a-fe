@@ -76,11 +76,11 @@ export const addProduct = (newProduct, authState) => dispatch => {
     });
 };
 
-export const fetchMyInfo = authState => dispatch => {
+export const fetchMyInfo = (authState, id) => dispatch => {
   let oktaStore = JSON.parse(localStorage['okta-token-storage']);
   let oktaId = oktaStore.idToken.claims.sub;
   dispatch({ type: FETCH_MY_INFO_START });
-  getProfileData(authState)
+  getProfileData(authState, id)
     .then(response => {
       console.log('res in getprofileddata', response);
       dispatch({ type: FETCH_MY_INFO_SUCCESS, payload: response });

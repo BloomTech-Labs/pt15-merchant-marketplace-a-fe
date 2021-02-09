@@ -4,28 +4,18 @@ import {
   FETCH_MY_INFO_ERROR,
 } from '../actions/index';
 
-const initialState = [
-  {
-    seller_name: 'redux',
-    physical_address: 'redux',
-    phone_number: 'redux',
-    email_address: 'redux',
-    description: 'redux',
-  },
-  {
-    seller_name: '22redux',
-    physical_address: '22redux',
-    phone_number: '22redux',
-    email_address: '22redux',
-    description: '22redux',
-  },
-];
-
+const initialState = {
+  seller_name: 'redux',
+  physical_address: 'redux',
+  phone_number: 'redux',
+  email_address: 'redux',
+  description: 'redux',
+};
 const myInfoReducer = (state = initialState, action) => {
   console.log('state in reducer', state);
   switch (action.type) {
     case FETCH_MY_INFO_START:
-      return [...state];
+      return { ...state };
     case FETCH_MY_INFO_SUCCESS:
       //   const newState = action.payload;
       console.log('payload in success', action.payload);

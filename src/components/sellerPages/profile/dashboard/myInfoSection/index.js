@@ -13,23 +13,26 @@ function MyInfo(props, { fetchMyInfo }) {
 
   function clicked(event) {
     console.log('clicked in infosec');
-    props.fetchMyInfo(authState);
+    props.fetchMyInfo(authState, sellerId.idToken.claims.sub);
   }
   console.log('props in mtInfoSec', props.myInfo);
+
+  const sellerId = JSON.parse(localStorage.getItem('okta-token-storage'));
+  console.log('seller id', sellerId.idToken.claims.sub);
+  console.log('props.MyInfo', props.myInfo);
+
   return (
     <>
       <NavBar />
       <br />
       <br />
-      {props.myInfo.map(item => (
-        <div>
-          <h3>Name:{item.seller_name}</h3>
-          <h3>Address:{item.physical_address}</h3>
-          <h3>Phone Number:{item.phone_number}</h3>
-          <h3>Email:{item.email_address}</h3>
-          <h3>Description:{item.description}</h3>
-        </div>
-      ))}
+      <div>
+        <h3>Name:{props.myInfo.seller_name}</h3>
+        <h3>Address:{props.myInfo.physical_address}</h3>
+        <h3>Phone Number:{props.myInfo.phone_number}</h3>
+        <h3>Email:{props.myInfo.email_address}</h3>
+        <h3>Description:{props.myInfo.description}</h3>
+      </div>
 
       <button onClick={clicked}>fetch</button>
     </>
