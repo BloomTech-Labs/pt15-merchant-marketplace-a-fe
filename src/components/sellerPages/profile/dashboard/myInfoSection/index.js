@@ -1,18 +1,29 @@
 import React, { useEffect } from 'react';
 import NavBar from '../../../../common/navBar';
 import { connect } from 'react-redux';
-import { fetchMyInfo } from '../../../../../state/actions';
+import { fetchMyInfo, editMyInfo } from '../../../../../state/actions';
 import { useOktaAuth } from '@okta/okta-react';
 
-function MyInfo(props, { fetchMyInfo }) {
+function MyInfo(props, fetchMyInfo, editMyInfo) {
   const { authState } = useOktaAuth();
+
+  console.log('props', props);
+
+  const editedState = {
+    id: '00ultwew80Onb2vOT4x6',
+    seller_name: 'edited',
+    email_address: 'llama002@maildrop.cc',
+    phone_number: 'edited',
+    physical_address: 'edited',
+    description: 'edited',
+  };
 
   useEffect(() => {
     props.fetchMyInfo(authState);
   }, []);
 
   function clicked(event) {
-    props.fetchMyInfo(authState);
+    props.editMyInfo(authState, editedState);
   }
 
   return (
@@ -28,20 +39,15 @@ function MyInfo(props, { fetchMyInfo }) {
         <h3>Description:{props.myInfo.description}</h3>
       </div>
 
-      <button onClick={clicked}>fetch</button>
+      <button onClick={clicked}>Edit</button>
     </>
   );
 }
 
 const mapStateToProps = state => {
   return {
-    myInfo: state.information,
-    // myName: state.information.info.seller_name,
-    // myAddress: state.information.info.physical_address,
-    // myPhoneNumber: state.information.info.phone_number,
-    // myEmail: state.information.info.email_address,
-    // myDescription: state.information.info.description,
+    myInfo: state.information.myInfo,
   };
 };
 
-export default connect(mapStateToProps, { fetchMyInfo })(MyInfo);
+export default connect(mapStateToProps, { fetchMyInfo, editMyInfo })(MyInfo);

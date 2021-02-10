@@ -3,6 +3,7 @@ import {
   sleep,
   getExampleData,
   getProfileData,
+  putProfileData,
   getProfileIdData,
   getDSData,
   postData,
@@ -31,6 +32,10 @@ export const ADD_ITEM_IMAGE_ERROR = 'ADD_ITEM_IMAGE_ERROR';
 export const FETCH_MY_INFO_START = 'FETCH_MY_INFO_START';
 export const FETCH_MY_INFO_SUCCESS = 'FETCH_MY_INFO_SUCCESS';
 export const FETCH_MY_INFO_ERROR = 'FETCH_MY_INFO_ERROR';
+
+export const EDIT_MY_INFO_START = 'EDIT_MY_INFO_START';
+export const EDIT_MY_INFO_SUCCESS = 'EDIT_MY_INFO_SUCCESS';
+export const EDIT_MY_INFO_ERROR = 'EDIT_MY_INFO_ERROR';
 
 //=================FETCH====================
 //<------------fetchProducts--------------->
@@ -112,5 +117,23 @@ export const fetchMyInfo = authState => dispatch => {
     })
     .catch(err => {
       dispatch({ type: FETCH_MY_INFO_ERROR, payload: err });
+    });
+};
+
+export const editMyInfo = (authState, editedInfo) => dispatch => {
+  let oktaStore = JSON.parse(localStorage['okta-token-storage']);
+  let oktaId = oktaStore.idToken.claims.sub;
+
+  editedInfo.id = oktaId;
+
+  console.log('editedInfo in actions', editedInfo);
+
+  dispatch({ type: EDIT_MY_INFO_START });
+  putProfileData(authState, editedInfo)
+    .then(response => {
+      dispatch({ type: EDIT_MY_INFO_SUCCESS, payload: response });
+    })
+    .catch(err => {
+      dispatch({ type: EDIT_MY_INFO_ERROR, payload: err });
     });
 };
