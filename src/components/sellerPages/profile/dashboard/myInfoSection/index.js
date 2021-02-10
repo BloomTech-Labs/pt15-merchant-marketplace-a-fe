@@ -8,14 +8,12 @@ function MyInfo(props, { fetchMyInfo }) {
   const { authState } = useOktaAuth();
 
   useEffect(() => {
-    props.fetchMyInfo(authState, sellerId.idToken.claims.sub);
+    props.fetchMyInfo(authState);
   }, []);
 
   function clicked(event) {
-    props.fetchMyInfo(authState, sellerId.idToken.claims.sub);
+    props.fetchMyInfo(authState);
   }
-
-  const sellerId = JSON.parse(localStorage.getItem('okta-token-storage'));
 
   return (
     <>

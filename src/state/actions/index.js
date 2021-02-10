@@ -87,24 +87,26 @@ export const addItemImage = (authState, itemId, photoUrl) => dispatch => {
 export const addProduct = (newProduct, authState) => async dispatch => {
   dispatch({ type: ADD_PRODUCT_START });
 
-  postData(
-    process.env.REACT_APP_API_URI + 'item',
-    newProduct.new_item,
-    authState
-  )
-    .then(response => {
-      dispatch({ type: ADD_PRODUCT_SUCCESS, payload: response.data });
-    })
-    .catch(error => {
-      dispatch({ type: ADD_PRODUCT_ERROR, payload: error });
-    });
+  try {
+    let response = await postData(
+      process.env.REACT_APP_API_URI + 'item',
+      newProduct.new_item,
+      authState
+    );
+    dispatch({ type: ADD_PRODUCT_SUCCESS, payload: response[0] });
+    return response[0];
+  } catch (error) {
+    dispatch({ type: ADD_PRODUCT_ERROR, payload: error });
+    return error;
+  }
 };
 
-export const fetchMyInfo = (authState, id) => dispatch => {
+export const fetchMyInfo = authState => dispatch => {
   let oktaStore = JSON.parse(localStorage['okta-token-storage']);
   let oktaId = oktaStore.idToken.claims.sub;
+
   dispatch({ type: FETCH_MY_INFO_START });
-  getProfileIdData(authState, id)
+  getProfileIdData(authState, oktaId)
     .then(response => {
       dispatch({ type: FETCH_MY_INFO_SUCCESS, payload: response });
     })
@@ -112,16 +114,3 @@ export const fetchMyInfo = (authState, id) => dispatch => {
       dispatch({ type: FETCH_MY_INFO_ERROR, payload: err });
     });
 };
-
-// try {
-//   let response = await postData(
-//     process.env.REACT_APP_API_URI + 'item',
-//     newProduct.new_item,
-//     authState
-//   );
-//   dispatch({ type: ADD_PRODUCT_SUCCESS, payload: response[0] });
-//   return response[0];
-// } catch (error) {
-//   dispatch({ type: ADD_PRODUCT_ERROR, payload: error });
-//   return error;
-// }

@@ -1,12 +1,8 @@
 import axios from 'axios';
 
 // we will define a bunch of API calls here.
-
-const sellerId = JSON.parse(localStorage.getItem('okta-token-storage'));
-// console.log('seller id', sellerId.idToken.claims.sub);
-
 const apiUrl = `${process.env.REACT_APP_API_URI}/profiles`;
-const apiUrlId = `${process.env.REACT_APP_API_URI}/profiles/${sellerId.idToken.claims.sub}`;
+// const apiUrlId = `${process.env.REACT_APP_API_URI}/profiles/${myId}`;
 
 const sleep = time =>
   new Promise(resolve => {
@@ -20,7 +16,6 @@ const getExampleData = () => {
 };
 
 const getAuthHeader = authState => {
-  console.log('authheader', authState.idToken);
   if (!authState.isAuthenticated) {
     throw new Error('Not authenticated');
   }
@@ -44,8 +39,8 @@ const apiAuthGet = authHeader => {
   return axios.get(apiUrl, { headers: authHeader });
 };
 
-const apiAuthGetId = authHeader => {
-  return axios.get(apiUrlId, { headers: authHeader });
+const apiAuthGetId = (authHeader, oktaId) => {
+  return axios.get(`${apiUrl}/${oktaId}`, { headers: authHeader });
 };
 
 const getProfileData = authState => {
@@ -61,9 +56,10 @@ const getProfileData = authState => {
   }
 };
 
-const getProfileIdData = authState => {
+const getProfileIdData = (authState, oktaId) => {
+  console.log('getprofileid ', oktaId);
   try {
-    return apiAuthGetId(getAuthHeader(authState)).then(
+    return apiAuthGetId(getAuthHeader(authState), oktaId).then(
       response => response.data
     );
   } catch (error) {
