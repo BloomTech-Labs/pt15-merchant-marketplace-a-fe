@@ -48,7 +48,7 @@ function MoreInfo({ setData, setProgress, slider }) {
 
   function warning(name, warningString) {
     Modal.warning({
-      title: 'Category exists',
+      title: 'Create a new category ',
       content: `${name} ${warningString}`,
     });
   }
@@ -56,18 +56,22 @@ function MoreInfo({ setData, setProgress, slider }) {
     setVisible(true);
   };
 
-  const handleOk = () => {
+  const handleOk = e => {
     setModalText('Create a new Category');
     let selCat = categories.filter(
       el => newCategory.toLowerCase() === el.category_name.toLowerCase()
     );
-    if (selCat.length > 0) {
+    if (newCategory === '') {
+      warning(newCategory, ' please enter category name or cancel');
+    } else if (selCat.length > 0) {
       warning(
         selCat[0].category_name,
         'category exists, please enter another category name or cancel'
       );
     } else {
       dispatch(addCategory(newCategory, authState));
+      e.preventDefault();
+      setNewCategory('');
       setConfirmLoading(true);
       setTimeout(() => {
         setVisible(false);
@@ -83,16 +87,16 @@ function MoreInfo({ setData, setProgress, slider }) {
   const handleCancel = () => {
     setVisible(false);
   };
-  const onModalFinish = () => {
-    console.log('modalFinish');
-  };
+  // const onModalFinish = () => {
+  //   setNewCategory('');
+  // };
 
   return (
     <div className="contents">
       <h1>Categories</h1>
       <p>
         Please, choose product categories. If a desired category does not exist,
-        create the new one.
+        create the new one and select created category.
       </p>
       <Form
         className="dynamic_form_nest_item"
@@ -131,8 +135,8 @@ function MoreInfo({ setData, setProgress, slider }) {
             </p>
           )}
           {selectedCategory &&
-            selectedCategory.map(cat => (
-              <div className="choosen-categories">
+            selectedCategory.map((cat, index) => (
+              <div className="choosen-categories" key={index}>
                 <div>{cat.category_name}</div>
                 <div
                   className="delete"
@@ -157,22 +161,24 @@ function MoreInfo({ setData, setProgress, slider }) {
             onCancel={handleCancel}
           >
             <p>{modalText}</p>
-            <Form className="dynamic_form_nest_item" onFinish={onModalFinish}>
-              <Form.Item
-                name="category_name"
-                rules={[
-                  {
-                    required: true,
-                    message: 'Please input category name',
-                  },
-                ]}
-              >
-                <Input
-                  placeholder="Name of Category"
-                  onChange={createNewCategoryChange}
-                />
-              </Form.Item>
-            </Form>
+
+            <Form.Item
+              name="category_name"
+              rules={[
+                {
+                  required: true,
+                  message: 'Please input category name',
+                },
+              ]}
+            >
+              <Input
+                placeholder="Name of Category"
+                onChange={createNewCategoryChange}
+                initialValue={newCategory}
+                allowClear={true}
+                resetFields={true}
+              />
+            </Form.Item>
           </Modal>
         </section>
         <FormButton
