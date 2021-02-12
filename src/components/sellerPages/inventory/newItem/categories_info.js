@@ -19,6 +19,7 @@ function MoreInfo({ setData, setProgress, slider }) {
   const [visible, setVisible] = useState(false);
   const [confirmLoading, setConfirmLoading] = useState(false);
   const [modalText, setModalText] = useState('Enter category name:');
+  const formRef = React.createRef();
 
   const onFinish = values => {
     setData(values);
@@ -28,7 +29,8 @@ function MoreInfo({ setData, setProgress, slider }) {
     let hasBeenChoosen = selectedCategory.filter(el => el.id === selCat[0].id);
     if (hasBeenChoosen.length > 0) {
       warning(
-        selCat[0].category_name,
+        // selCat[0].category_name,
+        newCategory,
         'category has been choosen, please select another one'
       );
     } else {
@@ -57,6 +59,7 @@ function MoreInfo({ setData, setProgress, slider }) {
   };
 
   const handleOk = e => {
+    formRef.current.resetFields();
     setModalText('Create a new Category');
     let selCat = categories.filter(
       el => newCategory.toLowerCase() === el.category_name.toLowerCase()
@@ -86,6 +89,8 @@ function MoreInfo({ setData, setProgress, slider }) {
 
   const handleCancel = () => {
     setVisible(false);
+    formRef.current.resetFields();
+    setNewCategory('');
   };
 
   return (
@@ -158,24 +163,25 @@ function MoreInfo({ setData, setProgress, slider }) {
             onCancel={handleCancel}
           >
             <p>{modalText}</p>
-
-            <Form.Item
-              name="category_name"
-              rules={[
-                {
-                  required: true,
-                  message: 'Please input category name',
-                },
-              ]}
-            >
-              <Input
-                placeholder="Name of Category"
-                onChange={createNewCategoryChange}
-                initialValue={newCategory}
-                allowClear={true}
-                resetFields={true}
-              />
-            </Form.Item>
+            <Form className="dynamic_form_nest_item" ref={formRef}>
+              <Form.Item
+                name="category_name"
+                rules={[
+                  {
+                    required: true,
+                    message: 'Please input category name',
+                  },
+                ]}
+              >
+                <Input
+                  placeholder="Name of Category"
+                  onChange={createNewCategoryChange}
+                  initialValue={newCategory}
+                  allowClear={true}
+                  resetFields={true}
+                />
+              </Form.Item>
+            </Form>
           </Modal>
         </section>
         <FormButton
