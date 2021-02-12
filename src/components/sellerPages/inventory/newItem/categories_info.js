@@ -29,7 +29,6 @@ function MoreInfo({ setData, setProgress, slider }) {
     let hasBeenChoosen = selectedCategory.filter(el => el.id === selCat[0].id);
     if (hasBeenChoosen.length > 0) {
       warning(
-        // selCat[0].category_name,
         newCategory,
         'category has been choosen, please select another one'
       );
