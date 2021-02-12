@@ -33,7 +33,6 @@ const ProductInfo = ({ item }) => {
 
   useEffect(() => {
     imgGet(item.id);
-    // getSellerProfile(seller_profile_id);
     getElement(
       seller_profile_id,
       'profile/',

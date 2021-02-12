@@ -87,9 +87,6 @@ function MoreInfo({ setData, setProgress, slider }) {
   const handleCancel = () => {
     setVisible(false);
   };
-  // const onModalFinish = () => {
-  //   setNewCategory('');
-  // };
 
   return (
     <div className="contents">
