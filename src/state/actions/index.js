@@ -151,6 +151,24 @@ export const addCategory = (newCategory, authState) => dispatch => {
       dispatch({ type: ADD_CATEGORY_ERROR, payload: err });
     });
 };
+
+//<---------------addTag---------------------->
+export const addTag = (newTag, authState) => dispatch => {
+  dispatch({ type: ADD_TAG_START });
+  postData(
+    process.env.REACT_APP_API_URI + 'tags/',
+    {
+      tag_name: newTag,
+    },
+    authState
+  )
+    .then(response => {
+      dispatch({ type: ADD_TAG_SUCCESS, payload: response });
+    })
+    .catch(err => {
+      dispatch({ type: ADD_TAG_ERROR, payload: err });
+    });
+};
 //<---------------addProductCategory---------------------->
 export const addProductCategory = (
   authState,
