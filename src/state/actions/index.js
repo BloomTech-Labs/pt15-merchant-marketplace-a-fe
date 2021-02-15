@@ -190,6 +190,22 @@ export const addProductCategory = (
     });
 };
 
+//<---------------addProductTag---------------------->
+export const addProductTag = (authState, productID, tagID) => dispatch => {
+  dispatch({ type: ADD_PRODUCT_TAG_START });
+  postData(
+    process.env.REACT_APP_API_URI + `item/${productID}/tags/${tagID}`,
+    { tag_id: tagID, item_id: productID },
+    authState
+  )
+    .then(response => {
+      dispatch({ type: ADD_PRODUCT_TAG_SUCCESS, payload: response });
+    })
+    .catch(err => {
+      dispatch({ type: ADD_PRODUCT_TAG_ERROR, payload: err });
+    });
+};
+
 export const fetchMyInfo = authState => dispatch => {
   let oktaStore = JSON.parse(localStorage['okta-token-storage']);
   let oktaId = oktaStore.idToken.claims.sub;
