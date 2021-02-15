@@ -38,9 +38,41 @@ const apiAuthGet = authHeader => {
   return axios.get(apiUrl, { headers: authHeader });
 };
 
+const apiAuthPut = authHeader => {
+  return axios.get(apiUrl, { headers: authHeader });
+};
+
+const apiAuthGetId = (authHeader, oktaId) => {
+  return axios.get(`${apiUrl}/${oktaId}`, { headers: authHeader });
+};
+
 const getProfileData = authState => {
   try {
     return apiAuthGet(getAuthHeader(authState)).then(response => response.data);
+  } catch (error) {
+    return new Promise(() => {
+      console.log(error);
+      return [];
+    });
+  }
+};
+
+const getProfileIdData = (authState, oktaId) => {
+  try {
+    return apiAuthGetId(getAuthHeader(authState), oktaId).then(
+      response => response.data
+    );
+  } catch (error) {
+    return new Promise(() => {
+      console.log(error);
+      return [];
+    });
+  }
+};
+
+const putProfileData = authState => {
+  try {
+    return apiAuthPut(getAuthHeader(authState)).then(response => response.data);
   } catch (error) {
     return new Promise(() => {
       console.log(error);
@@ -58,8 +90,16 @@ const postData = (url, newData, authState) => {
   }
   return axios
     .post(url, newData, { headers })
-    .then(res => JSON.parse(res.data))
+    .then(res => res.data)
     .catch(err => err);
 };
 
-export { sleep, getExampleData, getProfileData, getDSData, postData };
+export {
+  sleep,
+  getExampleData,
+  getProfileData,
+  getProfileIdData,
+  getDSData,
+  postData,
+  putProfileData,
+};
