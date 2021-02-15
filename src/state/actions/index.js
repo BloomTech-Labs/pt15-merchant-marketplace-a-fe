@@ -84,6 +84,19 @@ export const fetchCategories = authState => dispatch => {
     });
 };
 
+//<------------fetchTags--------------->
+export const fetchTags = authState => dispatch => {
+  dispatch({ type: FETCH_TAGS_START });
+  getDSData(`${process.env.REACT_APP_API_URI}tag`, authState)
+    .then(response => {
+      console.log('tag', response);
+      dispatch({ type: FETCH_TAGS_SUCCESS, payload: response });
+    })
+    .catch(err => {
+      dispatch({ type: FETCH_TAGS_ERROR, payload: err });
+    });
+};
+
 //=====================ADD========================
 //<------------addItemImage---------------------->
 export const addItemImage = (authState, itemId, photoUrl) => dispatch => {
