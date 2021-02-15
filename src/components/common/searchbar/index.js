@@ -8,6 +8,8 @@ function SearchBar({ searchVisible, setData }) {
   const { Search } = Input;
   const { Option } = Select;
 
+  console.log('hello from search bar');
+
   function onSearch(values) {
     setData(values);
   }
@@ -31,7 +33,7 @@ function SearchBar({ searchVisible, setData }) {
       <div className="searchOuter">
         <div className="searchBtns"></div>
         <Search
-          defaultValue="Search through your inventory"
+          placeholder="Search through your inventory"
           className="searchBar"
           onSearch={onSearch}
         />

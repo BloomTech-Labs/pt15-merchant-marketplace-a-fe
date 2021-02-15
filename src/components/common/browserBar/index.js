@@ -10,6 +10,9 @@ function BrowserBar() {
   };
   const submitHandler = () => {
     console.log('hi');
+    //If user searches for product, take them to the search results page
+    //if the user searches for a specific seller, take them to sellerPages
+    //if the user searches by zip code, show them a map of nearby users.
   };
   return (
     <Form className="search-bar" onFinish={submitHandler}>
