@@ -7,6 +7,7 @@ import categoriesReducer from './categoriesReducer';
 import addCategoryReducer from './addCategoryReducer';
 import addProductCategoryReducer from './addProductCategoryReducer';
 import addTagReducer from './addTagReducer';
+import addProductTagReducer from './addProductTagReducer';
 
 const reducers = combineReducers({
   products: productsReducer,
@@ -17,6 +18,7 @@ const reducers = combineReducers({
   addCategory: addCategoryReducer,
   addProductCategory: addProductCategoryReducer,
   addTag: addTagReducer,
+  addProductTag: addProductTagReducer,
 });
 
 export default reducers;
