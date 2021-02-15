@@ -65,7 +65,7 @@ const NewItemInfo = ({ photos, mainInfo, categoryInfo, tagInfo }) => {
           <div className="categories-container">
             <div className="title">Categories: </div>
             {categoryInfo.map(category => (
-              <div>{category.category_name}</div>
+              <div key={category.id}>{category.category_name}</div>
             ))}
           </div>
         </div>
@@ -73,7 +73,7 @@ const NewItemInfo = ({ photos, mainInfo, categoryInfo, tagInfo }) => {
       <section className="tags-container">
         <div className="tag-title">Tags: </div>
         {tagInfo.map(tag => (
-          <Tag>{tag.tag_name}</Tag>
+          <Tag key={tag.id}>{tag.tag_name}</Tag>
         ))}
       </section>
     </div>
