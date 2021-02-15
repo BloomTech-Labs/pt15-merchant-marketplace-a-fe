@@ -179,7 +179,7 @@ function MoreInfo({ setData, setProgress, slider }) {
         <FormButton
           setProgress={setProgress}
           slider={slider}
-          progressPercent={40}
+          progressPercent={60}
           text="Next"
         />
       </Form>

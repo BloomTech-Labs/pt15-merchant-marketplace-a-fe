@@ -4,7 +4,7 @@ import { Rate, Avatar, Tag } from 'antd';
 import { GlobalOutlined } from '@ant-design/icons';
 import { getDSData } from '../../../api';
 
-const NewItemInfo = ({ photos, mainInfo, categoryInfo }) => {
+const NewItemInfo = ({ photos, mainInfo, categoryInfo, tagInfo }) => {
   const [sellerProfile, setSellerProfile] = useState({});
   const { authState } = useOktaAuth();
   let oktaStore = JSON.parse(localStorage['okta-token-storage']);
@@ -71,10 +71,10 @@ const NewItemInfo = ({ photos, mainInfo, categoryInfo }) => {
         </div>
       </div>
       <section className="tags-container">
-        <Tag className="tags">Tag</Tag>
-        <Tag className="tags">Tag</Tag>
-        <Tag className="tags">Tag</Tag>
-        <Tag className="tags">Tag</Tag>
+        <div className="tag-title">Tags: </div>
+        {tagInfo.map(tag => (
+          <Tag>{tag.tag_name}</Tag>
+        ))}
       </section>
     </div>
   );

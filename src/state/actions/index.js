@@ -194,7 +194,7 @@ export const addProductCategory = (
 export const addProductTag = (authState, productID, tagID) => dispatch => {
   dispatch({ type: ADD_PRODUCT_TAG_START });
   postData(
-    process.env.REACT_APP_API_URI + `item/${productID}/tags/${tagID}`,
+    process.env.REACT_APP_API_URI + `item/${productID}/tag/${tagID}`,
     { tag_id: tagID, item_id: productID },
     authState
   )
