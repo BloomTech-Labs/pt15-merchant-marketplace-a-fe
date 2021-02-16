@@ -3,7 +3,7 @@ import {
   sleep,
   getExampleData,
   getProfileData,
-  putProfileData,
+  putData,
   getProfileIdData,
   getDSData,
   postData,
@@ -126,7 +126,7 @@ export const editMyInfo = (authState, editedInfo) => async dispatch => {
   editedInfo.id = oktaId;
 
   dispatch({ type: EDIT_MY_INFO_START });
-  putProfileData(
+  putData(
     process.env.REACT_APP_API_URI + 'profile/',
     editedInfo,
     authState
