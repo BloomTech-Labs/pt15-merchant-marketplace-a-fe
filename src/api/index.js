@@ -65,7 +65,7 @@ const getProfileIdData = (authState, oktaId) => {
   }
 };
 
-const putProfileData = (url, editedData, authState) => {
+const putData = (url, editedData, authState) => {
   const headers = getAuthHeader(authState);
   if (!url) {
     throw new Error('No URL provided');
@@ -96,5 +96,5 @@ export {
   getProfileIdData,
   getDSData,
   postData,
-  putProfileData,
+  putData,
 };
