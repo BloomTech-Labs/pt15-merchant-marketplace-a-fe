@@ -7,6 +7,7 @@ import {
   getProfileIdData,
   getDSData,
   postData,
+  deleteData,
 } from '../../api/index';
 
 export const FETCH_PRODUCTS_START = 'FETCH_PRODUCTS_START';
@@ -208,6 +209,20 @@ export const addProductTag = (authState, productID, tagID) => dispatch => {
     })
     .catch(err => {
       dispatch({ type: ADD_PRODUCT_TAG_ERROR, payload: err });
+    });
+};
+
+//=================DELETE====================
+//<------------deleteProduct--------------->
+export const deleteProduct = (itemId, authState) => dispatch => {
+  dispatch({ type: DELETE_PRODUCT_START });
+  deleteData(process.env.REACT_APP_API_URI + `items/${itemId}/`, authState)
+    .then(response => {
+      console.log('delete item response.data', response.data);
+      dispatch({ type: DELETE_PRODUCT_SUCCESS, payload: response.data });
+    })
+    .catch(error => {
+      dispatch({ type: DELETE_PRODUCT_ERROR, payload: error });
     });
 };
 
