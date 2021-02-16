@@ -53,6 +53,10 @@ export const EDIT_MY_INFO_START = 'EDIT_MY_INFO_START';
 export const EDIT_MY_INFO_SUCCESS = 'EDIT_MY_INFO_SUCCESS';
 export const EDIT_MY_INFO_ERROR = 'EDIT_MY_INFO_ERROR';
 
+export const DELETE_PRODUCT_START = 'DELETE_PRODUCT_START';
+export const DELETE_PRODUCT_SUCCESS = 'DELETE_PRODUCT_SUCCESS';
+export const DELETE_PRODUCT_ERROR = 'DELETE_PRODUCT_ERROR';
+
 //=================FETCH====================
 //<------------fetchProducts--------------->
 export const fetchProducts = authState => dispatch => {
@@ -227,11 +231,7 @@ export const editMyInfo = (authState, editedInfo) => async dispatch => {
   editedInfo.id = oktaId;
 
   dispatch({ type: EDIT_MY_INFO_START });
-  putData(
-    process.env.REACT_APP_API_URI + 'profile/',
-    editedInfo,
-    authState
-  )
+  putData(process.env.REACT_APP_API_URI + 'profile/', editedInfo, authState)
     .then(response => {
       dispatch({ type: EDIT_MY_INFO_SUCCESS, payload: response });
     })
