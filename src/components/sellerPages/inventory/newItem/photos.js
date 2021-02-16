@@ -71,7 +71,6 @@ function AddPhotos({ setProgress, slider, setPhotos, photos }) {
   //     <div style={{ marginTop: 8 }}>Upload</div>
   //   </div>
   // );
-
   return (
     <div className="contents">
       <h1>Add photos of the item</h1>
@@ -87,6 +86,11 @@ function AddPhotos({ setProgress, slider, setPhotos, photos }) {
           tip="Image Loading..."
           style={{ marginLeft: '5rem', marginTop: '2rem' }}
         />
+      )}
+      {photos && (
+        <div className="newImg">
+          <img src={photos} />
+        </div>
       )}
 
       <FormButton
