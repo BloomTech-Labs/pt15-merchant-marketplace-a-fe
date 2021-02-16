@@ -38,10 +38,6 @@ const apiAuthGet = authHeader => {
   return axios.get(apiUrl, { headers: authHeader });
 };
 
-const apiAuthPut = authHeader => {
-  return axios.get(apiUrl, { headers: authHeader });
-};
-
 const apiAuthGetId = (authHeader, oktaId) => {
   return axios.get(`${apiUrl}/${oktaId}`, { headers: authHeader });
 };
@@ -70,15 +66,15 @@ const getProfileIdData = (authState, oktaId) => {
   }
 };
 
-const putProfileData = authState => {
-  try {
-    return apiAuthPut(getAuthHeader(authState)).then(response => response.data);
-  } catch (error) {
-    return new Promise(() => {
-      console.log(error);
-      return [];
-    });
+const putData = (url, editedData, authState) => {
+  const headers = getAuthHeader(authState);
+  if (!url) {
+    throw new Error('No URL provided');
   }
+  return axios
+    .put(url, editedData, { headers })
+    .then(res => res.data)
+    .catch(err => err);
 };
 
 const postData = (url, newData, authState) => {
@@ -101,5 +97,5 @@ export {
   getProfileIdData,
   getDSData,
   postData,
-  putProfileData,
+  putData,
 };

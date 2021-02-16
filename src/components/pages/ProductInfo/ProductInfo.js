@@ -30,17 +30,9 @@ const ProductInfo = ({ item }) => {
         console.log('Img get fail in ProductInfo.');
       });
   };
-  //<----------------Get Seller Profile---------------->
-  const getSellerProfile = id => {
-    getDSData(`${process.env.REACT_APP_API_URI}profile/${id}`, authState)
-      .then(res => setSellerProfile(res))
-      .catch(err => {
-        console.log('Seller Name get fail in ItemCard');
-      });
-  };
+
   useEffect(() => {
     imgGet(item.id);
-    // getSellerProfile(seller_profile_id);
     getElement(
       seller_profile_id,
       'profile/',
@@ -97,7 +89,7 @@ const ProductInfo = ({ item }) => {
           >
             <h3>Categories: </h3>
             {categories.map(category => (
-              <Tag className="tags" style={{ width: 'auto' }}>
+              <Tag className="tags" style={{ width: 'auto' }} key={category.id}>
                 {category.category_name}
               </Tag>
             ))}
@@ -106,7 +98,7 @@ const ProductInfo = ({ item }) => {
       </div>
       <section className="tags-container" style={{ paddingLeft: '12rem' }}>
         {tags.map(tag => (
-          <Tag className="tags" style={{ width: 'auto' }}>
+          <Tag className="tags" style={{ width: 'auto' }} key={tag.id}>
             {tag.tag_name}
           </Tag>
         ))}

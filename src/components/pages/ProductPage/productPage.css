@@ -87,6 +87,22 @@ img {
 h3 {
     margin-left: 1%;
 }
+.categories-container{
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+.title{
+  color:#456CC0; 
+}
+.tag-title{
+  color:#456CC0; 
+  margin-right: 0.5rem;
+  margin-left: 1.3rem;
+}
+.dollars{
+  margin-left: 2rem;
+}
 
 
 
