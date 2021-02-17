@@ -18,6 +18,9 @@ function SearchBar({ searchVisible, setData }) {
   function unPublishedChange() {
     setData('unpublished');
   }
+  function mainChange() {
+    setData('main');
+  }
 
   function sortChange(value) {
     console.log(`selected sortBy: ${value}`);
@@ -37,6 +40,7 @@ function SearchBar({ searchVisible, setData }) {
     <div className={inView}>
       <div className="searchOuter">
         <div className="searchBtns">
+          <Button onClick={mainChange}>Main</Button>
           <Button onClick={publishedChange}>Published</Button>
           <Button onClick={unPublishedChange}>Drafts</Button>
           <Button>Archives</Button>
