@@ -19,6 +19,7 @@ function SearchResults({ data, filter }) {
             description={item.description}
             count={item.quantity_available}
             image={item.id}
+            published={item.published}
           />
         </NavLink>
       ))}

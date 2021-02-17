@@ -3,7 +3,11 @@ import React, { useEffect, useState } from 'react';
 import { getDSData } from '../../../api';
 import ProductCarousel from '../ProductPage/ProductCarousel';
 import { Rate, Avatar, Tag, Button } from 'antd';
-import { GlobalOutlined } from '@ant-design/icons';
+import {
+  GlobalOutlined,
+  MinusCircleOutlined,
+  CheckCircleOutlined,
+} from '@ant-design/icons';
 import { deleteProduct } from '../../../state/actions';
 import { useHistory } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
@@ -62,6 +66,12 @@ const ProductInfo = ({ item }) => {
   let dollars = item.price_in_cents / 100;
   return (
     <div className="product-page">
+      {item.published ? (
+        <CheckCircleOutlined style={{ fontSize: '32px', color: 'green' }} />
+      ) : (
+        <MinusCircleOutlined style={{ fontSize: '32px', color: 'red' }} />
+      )}
+
       <div className="product-container">
         <div>
           {/* <ProductCarousel /> */}
