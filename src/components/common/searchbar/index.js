@@ -12,6 +12,13 @@ function SearchBar({ searchVisible, setData }) {
     setData(values);
   }
 
+  function publishedChange() {
+    setData('published');
+  }
+  function unPublishedChange() {
+    setData('unpublished');
+  }
+
   function sortChange(value) {
     console.log(`selected sortBy: ${value}`);
   }
@@ -29,6 +36,11 @@ function SearchBar({ searchVisible, setData }) {
   return (
     <div className={inView}>
       <div className="searchOuter">
+        <div className="searchBtns">
+          <Button onClick={publishedChange}>Published</Button>
+          <Button onClick={unPublishedChange}>Drafts</Button>
+          <Button>Archives</Button>
+        </div>
         <div className="searchBtns"></div>
         <Search
           defaultValue="Search through your inventory"
@@ -48,11 +60,6 @@ function SearchBar({ searchVisible, setData }) {
             <Button className="add-item-button">+ Add Item</Button>
           </Link>
         </div>
-      </div>
-      <div className="searchBtns">
-        <Button>Main</Button>
-        <Button>Drafts</Button>
-        <Button>Archives</Button>
       </div>
     </div>
   );
