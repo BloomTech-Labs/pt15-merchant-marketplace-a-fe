@@ -1,11 +1,21 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import NavBar from '../../../../common/navBar';
 import { connect } from 'react-redux';
 import { fetchMyInfo, editMyInfo } from '../../../../../state/actions';
 import { useOktaAuth } from '@okta/okta-react';
 
 function MyInfo(props) {
+  const history = useHistory();
   const { authState } = useOktaAuth();
+  const [sellerForm, setSellerForm] = useState({
+    id: '00ultwew80Onb2vOT4x6',
+    seller_name: 'useStateedited',
+    email_address: 'llama002@maildrop.cc',
+    phone_number: 'useStateedited',
+    physical_address: 'edited',
+    description: 'edited',
+  });
 
   const editedState = {
     id: '00ultwew80Onb2vOT4x6',
@@ -18,10 +28,11 @@ function MyInfo(props) {
 
   useEffect(() => {
     props.fetchMyInfo(authState);
-  });
+  }, []);
 
   function clicked(event) {
-    props.editMyInfo(authState, editedState);
+    history.push('/myprofile/editinfo');
+    // props.editMyInfo(authState, sellerForm);
   }
 
   return (
