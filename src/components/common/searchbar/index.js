@@ -13,13 +13,13 @@ function SearchBar({ searchVisible, setData }) {
   }
 
   function publishedChange() {
-    setData('published');
+    setData('$#&published');
   }
   function unPublishedChange() {
-    setData('unpublished');
+    setData('$#&unpublished');
   }
   function mainChange() {
-    setData('main');
+    setData('$#&main');
   }
 
   function sortChange(value) {
