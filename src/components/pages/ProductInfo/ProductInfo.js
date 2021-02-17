@@ -67,9 +67,15 @@ const ProductInfo = ({ item }) => {
   return (
     <div className="product-page">
       {item.published ? (
-        <CheckCircleOutlined style={{ fontSize: '32px', color: 'green' }} />
+        <div className="published-container">
+          <CheckCircleOutlined style={{ fontSize: '32px', color: 'green' }} />
+          <span className="published">published</span>
+        </div>
       ) : (
-        <MinusCircleOutlined style={{ fontSize: '32px', color: 'red' }} />
+        <div className="published-container">
+          <MinusCircleOutlined style={{ fontSize: '32px', color: 'red' }} />
+          <span className="published">unpublished</span>
+        </div>
       )}
 
       <div className="product-container">
