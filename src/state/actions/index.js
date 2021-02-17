@@ -3,10 +3,11 @@ import {
   sleep,
   getExampleData,
   getProfileData,
-  putProfileData,
+  putData,
   getProfileIdData,
   getDSData,
   postData,
+  deleteData,
 } from '../../api/index';
 
 export const FETCH_PRODUCTS_START = 'FETCH_PRODUCTS_START';
@@ -17,6 +18,10 @@ export const FETCH_CATEGORIES_START = 'FETCH_CATEGORIES_START';
 export const FETCH_CATEGORIES_SUCCESS = 'FETCH_CATEGORIES_SUCCESS';
 export const FETCH_CATEGORIES_ERROR = 'FETCH_CATEGORIES_ERROR';
 
+export const FETCH_TAGS_START = 'FETCH_TAGS_START';
+export const FETCH_TAGS_SUCCESS = 'FETCH_TAGS_SUCCESS';
+export const FETCH_TAGS_ERROR = 'FETCH_TAGS_ERROR';
+
 export const ADD_PRODUCT_START = 'ADD_PRODUCT_START';
 export const ADD_PRODUCT_SUCCESS = 'ADD_PRODUCT_SUCCESS';
 export const ADD_PRODUCT_ERROR = 'ADD_PRODUCT_ERROR';
@@ -25,9 +30,17 @@ export const ADD_CATEGORY_START = 'ADD_CATEGORY_START';
 export const ADD_CATEGORY_SUCCESS = 'ADD_CATEGORY_SUCCESS';
 export const ADD_CATEGORY_ERROR = 'ADD_CATEGORY_ERROR';
 
+export const ADD_TAG_START = 'ADD_TAG_START';
+export const ADD_TAG_SUCCESS = 'ADD_TAG_SUCCESS';
+export const ADD_TAG_ERROR = 'ADD_TAG_ERROR';
+
 export const ADD_PRODUCT_CATEGORY_START = 'ADD_PRODUCT_CATEGORY_START';
 export const ADD_PRODUCT_CATEGORY_SUCCESS = 'ADD_PRODUCT_CATEGORY_SUCCESS';
 export const ADD_PRODUCT_CATEGORY_ERROR = 'ADD_PRODUCT_CATEGORY_ERROR';
+
+export const ADD_PRODUCT_TAG_START = 'ADD_PRODUCT_TAG_START';
+export const ADD_PRODUCT_TAG_SUCCESS = 'ADD_PRODUCT_TAG_SUCCESS';
+export const ADD_PRODUCT_TAG_ERROR = 'ADD_PRODUCT_TAG_ERROR';
 
 export const ADD_ITEM_IMAGE_START = 'ADD_ITEM_IMAGE_START';
 export const ADD_ITEM_IMAGE_SUCCESS = 'ADD_ITEM_IMAGE_SUCCESS';
@@ -40,6 +53,10 @@ export const FETCH_MY_INFO_ERROR = 'FETCH_MY_INFO_ERROR';
 export const EDIT_MY_INFO_START = 'EDIT_MY_INFO_START';
 export const EDIT_MY_INFO_SUCCESS = 'EDIT_MY_INFO_SUCCESS';
 export const EDIT_MY_INFO_ERROR = 'EDIT_MY_INFO_ERROR';
+
+export const DELETE_PRODUCT_START = 'DELETE_PRODUCT_START';
+export const DELETE_PRODUCT_SUCCESS = 'DELETE_PRODUCT_SUCCESS';
+export const DELETE_PRODUCT_ERROR = 'DELETE_PRODUCT_ERROR';
 
 //=================FETCH====================
 //<------------fetchProducts--------------->
@@ -69,6 +86,19 @@ export const fetchCategories = authState => dispatch => {
     })
     .catch(err => {
       dispatch({ type: FETCH_CATEGORIES_ERROR, payload: err });
+    });
+};
+
+//<------------fetchTags--------------->
+export const fetchTags = authState => dispatch => {
+  dispatch({ type: FETCH_TAGS_START });
+  getDSData(`${process.env.REACT_APP_API_URI}tag`, authState)
+    .then(response => {
+      console.log('tag', response);
+      dispatch({ type: FETCH_TAGS_SUCCESS, payload: response });
+    })
+    .catch(err => {
+      dispatch({ type: FETCH_TAGS_ERROR, payload: err });
     });
 };
 
@@ -109,6 +139,7 @@ export const addProduct = (newProduct, authState) => async dispatch => {
     return error;
   }
 };
+
 //<---------------addCategory---------------------->
 export const addCategory = (newCategory, authState) => dispatch => {
   dispatch({ type: ADD_CATEGORY_START });
@@ -124,6 +155,24 @@ export const addCategory = (newCategory, authState) => dispatch => {
     })
     .catch(err => {
       dispatch({ type: ADD_CATEGORY_ERROR, payload: err });
+    });
+};
+
+//<---------------addTag---------------------->
+export const addTag = (newTag, authState) => dispatch => {
+  dispatch({ type: ADD_TAG_START });
+  postData(
+    process.env.REACT_APP_API_URI + 'tags/',
+    {
+      tag_name: newTag,
+    },
+    authState
+  )
+    .then(response => {
+      dispatch({ type: ADD_TAG_SUCCESS, payload: response });
+    })
+    .catch(err => {
+      dispatch({ type: ADD_TAG_ERROR, payload: err });
     });
 };
 //<---------------addProductCategory---------------------->
@@ -147,6 +196,36 @@ export const addProductCategory = (
     });
 };
 
+//<---------------addProductTag---------------------->
+export const addProductTag = (authState, productID, tagID) => dispatch => {
+  dispatch({ type: ADD_PRODUCT_TAG_START });
+  postData(
+    process.env.REACT_APP_API_URI + `item/${productID}/tag/${tagID}`,
+    { tag_id: tagID, item_id: productID },
+    authState
+  )
+    .then(response => {
+      dispatch({ type: ADD_PRODUCT_TAG_SUCCESS, payload: response });
+    })
+    .catch(err => {
+      dispatch({ type: ADD_PRODUCT_TAG_ERROR, payload: err });
+    });
+};
+
+//=================DELETE====================
+//<------------deleteProduct--------------->
+export const deleteProduct = (itemId, authState) => dispatch => {
+  dispatch({ type: DELETE_PRODUCT_START });
+  deleteData(process.env.REACT_APP_API_URI + `items/${itemId}/`, authState)
+    .then(response => {
+      console.log('delete item response.data', response.data);
+      dispatch({ type: DELETE_PRODUCT_SUCCESS, payload: response.data });
+    })
+    .catch(error => {
+      dispatch({ type: DELETE_PRODUCT_ERROR, payload: error });
+    });
+};
+
 export const fetchMyInfo = authState => dispatch => {
   let oktaStore = JSON.parse(localStorage['okta-token-storage']);
   let oktaId = oktaStore.idToken.claims.sub;
@@ -161,16 +240,13 @@ export const fetchMyInfo = authState => dispatch => {
     });
 };
 
-export const editMyInfo = (authState, editedInfo) => dispatch => {
+export const editMyInfo = (authState, editedInfo) => async dispatch => {
   let oktaStore = JSON.parse(localStorage['okta-token-storage']);
   let oktaId = oktaStore.idToken.claims.sub;
-
   editedInfo.id = oktaId;
 
-  console.log('editedInfo in actions', editedInfo);
-
   dispatch({ type: EDIT_MY_INFO_START });
-  putProfileData(authState, editedInfo)
+  putData(process.env.REACT_APP_API_URI + 'profile/', editedInfo, authState)
     .then(response => {
       dispatch({ type: EDIT_MY_INFO_SUCCESS, payload: response });
     })

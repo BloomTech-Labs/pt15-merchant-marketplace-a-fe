@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 // we will define a bunch of API calls here.
-const apiUrl = `${process.env.REACT_APP_API_URI}/profiles`;
+const apiUrl = `${process.env.REACT_APP_API_URI}profiles`;
 
 const sleep = time =>
   new Promise(resolve => {
@@ -22,8 +22,6 @@ const getAuthHeader = authState => {
 };
 
 const getDSData = (url, authState) => {
-  // here's another way you can compose together your API calls.
-  // Note the use of GetAuthHeader here is a little different than in the getProfileData call.
   const headers = getAuthHeader(authState);
   if (!url) {
     throw new Error('No URL provided');
@@ -35,10 +33,6 @@ const getDSData = (url, authState) => {
 };
 
 const apiAuthGet = authHeader => {
-  return axios.get(apiUrl, { headers: authHeader });
-};
-
-const apiAuthPut = authHeader => {
   return axios.get(apiUrl, { headers: authHeader });
 };
 
@@ -70,20 +64,18 @@ const getProfileIdData = (authState, oktaId) => {
   }
 };
 
-const putProfileData = authState => {
-  try {
-    return apiAuthPut(getAuthHeader(authState)).then(response => response.data);
-  } catch (error) {
-    return new Promise(() => {
-      console.log(error);
-      return [];
-    });
+const putData = (url, editedData, authState) => {
+  const headers = getAuthHeader(authState);
+  if (!url) {
+    throw new Error('No URL provided');
   }
+  return axios
+    .put(url, editedData, { headers })
+    .then(res => res.data)
+    .catch(err => err);
 };
 
 const postData = (url, newData, authState) => {
-  // here's another way you can compose together your API calls.
-  // Note the use of GetAuthHeader here is a little different than in the getProfileData call.
   const headers = getAuthHeader(authState);
   if (!url) {
     throw new Error('No URL provided');
@@ -94,6 +86,21 @@ const postData = (url, newData, authState) => {
     .catch(err => err);
 };
 
+const deleteData = (url, authState) => {
+  const headers = getAuthHeader(authState);
+  if (!url) {
+    throw new Error('No URL provided');
+  }
+  console.log('url', url);
+  return axios
+    .delete(url, { headers })
+    .then(res => {
+      console.log('deleteData api res.data', res.data);
+      JSON.parse(res.data);
+    })
+    .catch(err => console.log('deleteData api error', err));
+};
+
 export {
   sleep,
   getExampleData,
@@ -101,5 +108,6 @@ export {
   getProfileIdData,
   getDSData,
   postData,
-  putProfileData,
+  putData,
+  deleteData,
 };
