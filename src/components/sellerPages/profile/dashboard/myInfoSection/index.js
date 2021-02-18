@@ -19,11 +19,11 @@ function MyInfo(props) {
 
   const editedState = {
     id: '00ultwew80Onb2vOT4x6',
-    seller_name: 'edited',
+    seller_name: 'working',
     email_address: 'llama002@maildrop.cc',
-    phone_number: 'edited',
-    physical_address: 'edited',
-    description: 'edited',
+    phone_number: 'working',
+    physical_address: 'working',
+    description: 'working',
   };
 
   useEffect(() => {
@@ -31,8 +31,10 @@ function MyInfo(props) {
   }, []);
 
   function clicked(event) {
-    history.push('/myprofile/editinfo');
-    // props.editMyInfo(authState, sellerForm);
+    // history.push('/myprofile/editinfo');
+    console.log('indexauthstate-', authState);
+    console.log('indexsellerform-', sellerForm);
+    props.editMyInfo(authState, sellerForm);
   }
 
   return (

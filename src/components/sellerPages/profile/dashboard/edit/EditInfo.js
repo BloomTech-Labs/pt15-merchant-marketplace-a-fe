@@ -9,19 +9,19 @@ function EditInfo(props) {
   const history = useHistory();
   const { authState } = useOktaAuth();
   const [sellerForm, setSellerForm] = useState({
-    // id: `${props.myInfo.id}`,
-    // seller_name:`${props.myInfo.seller_name}` ,
-    // email_address: `${props.myInfo.email_address}`,
-    // phone_number: `${props.myInfo.phone_number}`,
-    // physical_address: `${props.myInfo.physical_address}`,
-    // description: `${props.myInfo.physical_description}`
+    id: `${props.myInfo.id}`,
+    seller_name: `${props.myInfo.seller_name}`,
+    email_address: `${props.myInfo.email_address}`,
+    phone_number: `${props.myInfo.phone_number}`,
+    physical_address: `${props.myInfo.physical_address}`,
+    description: `${props.myInfo.physical_description}`,
 
-    id: '00ultwew80Onb2vOT4x6',
-    seller_name: 'terryd',
-    email_address: 'llama002@maildrop.cc',
-    phone_number: 'useStateedited',
-    physical_address: 'edited',
-    description: 'edited',
+    // id: '00ultwew80Onb2vOT4x6',
+    // seller_name: '',
+    // email_address: '',
+    // phone_number: '',
+    // physical_address: '',
+    // description: ''
   });
 
   // ({
@@ -33,13 +33,15 @@ function EditInfo(props) {
   //     description: 'edited'
   //   })
 
-  useEffect(() => {
-    props.fetchMyInfo(authState);
+  useEffect(async () => {
+    await props.fetchMyInfo(authState);
   }, []);
 
   function editForm(e) {
+    console.log('sellerform', sellerForm);
     setSellerForm({
-      [e.target.value]: e.target.name,
+      ...sellerForm,
+      [e.target.name]: e.target.value,
     });
   }
 
@@ -48,8 +50,10 @@ function EditInfo(props) {
   }
 
   async function submitEdit(e) {
+    console.log('editauthstate-', authState);
+    console.log('editsellerform-', sellerForm);
     await props.editMyInfo(authState, sellerForm);
-    history.push('/myprofile/myinfo');
+    // history.push('/myprofile/myinfo');
   }
 
   return (
@@ -59,28 +63,47 @@ function EditInfo(props) {
       <br />
       <label>
         Name
-        <input value={sellerForm.seller_name} onChange={editForm}></input>
+        <input
+          name="seller_name"
+          value={sellerForm.seller_name}
+          onChange={editForm}
+        ></input>
       </label>
       <br />
       <label>
         Address
-        <input value={sellerForm.physical_address} onChange={editForm}></input>
+        <input
+          name="physical_address"
+          value={sellerForm.physical_address}
+          onChange={editForm}
+        ></input>
       </label>
       <br />
       <label>
         PhoneNumber
-        <input value={sellerForm.phone_number} onChange={editForm}></input>
+        <input
+          name="phone_number"
+          value={sellerForm.phone_number}
+          onChange={editForm}
+        ></input>
       </label>
       <br />
       <label>
-        {' '}
         Email
-        <input value={sellerForm.email_address} onChange={editForm}></input>
+        <input
+          name="email_address"
+          value={sellerForm.email_address}
+          onChange={editForm}
+        ></input>
       </label>
       <br />
       <label>
         Description
-        <input value={sellerForm.description} onChange={editForm}></input>
+        <input
+          name="description"
+          value={sellerForm.description}
+          onChange={editForm}
+        ></input>
       </label>
       <button onClick={submitEdit}>submit</button>
       <button onClick={cancelEdit}>cancel</button>
