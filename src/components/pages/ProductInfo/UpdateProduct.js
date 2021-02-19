@@ -24,7 +24,7 @@ const UpdateProduct = props => {
 
   return (
     <div className="myProductContents">
-      <h1>Edit MyInfo</h1>
+      <h1>Update Product</h1>
       <Form
         ref={formRef}
         form={form}
@@ -41,6 +41,7 @@ const UpdateProduct = props => {
       >
         {/*======================item_name========================== */}
         <Form.Item
+          label="Product Name"
           name="item_name"
           rules={[
             {
@@ -53,6 +54,7 @@ const UpdateProduct = props => {
         </Form.Item>
         {/*======================Description========================== */}
         <Form.Item
+          label="Description"
           name="description"
           rules={[
             {
@@ -65,11 +67,11 @@ const UpdateProduct = props => {
           <Input placeholder="Description" />
         </Form.Item>
         {/*======================Price In Cents========================== */}
-        <Form.Item name="price_in_cents">
+        <Form.Item name="price_in_cents" label="Price In Cents">
           <InputNumber placeholder="Price per item" min={1} />
         </Form.Item>
         {/*======================Quantity Available========================== */}
-        <Form.Item name="quantity_available">
+        <Form.Item name="quantity_available" label="Quantity">
           <InputNumber placeholder="quantity_available" min={0} />
         </Form.Item>
         {/*===================Published===================== */}
