@@ -67,11 +67,11 @@ const UpdateProduct = props => {
           <Input placeholder="Description" />
         </Form.Item>
         {/*======================Price In Cents========================== */}
-        <Form.Item name="price_in_cents" label="Price In Cents">
+        <Form.Item name="price_in_cents" label="Price In Cents" required>
           <InputNumber placeholder="Price per item" min={1} />
         </Form.Item>
         {/*======================Quantity Available========================== */}
-        <Form.Item name="quantity_available" label="Quantity">
+        <Form.Item name="quantity_available" label="Quantity" required>
           <InputNumber placeholder="quantity_available" min={0} />
         </Form.Item>
         {/*===================Published===================== */}
