@@ -64,7 +64,7 @@ const UpdateProduct = props => {
             },
           ]}
         >
-          <Input placeholder="Description" />
+          <Input.TextArea placeholder="Short Description (Max 140 Characters)" />
         </Form.Item>
         {/*======================Price In Cents========================== */}
         <Form.Item name="price_in_cents" label="Price In Cents" required>
