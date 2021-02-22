@@ -8,33 +8,13 @@ import { useOktaAuth } from '@okta/okta-react';
 function MyInfo(props) {
   const history = useHistory();
   const { authState } = useOktaAuth();
-  const [sellerForm, setSellerForm] = useState({
-    id: '00ultwew80Onb2vOT4x6',
-    seller_name: 'useStateedited',
-    email_address: 'llama002@maildrop.cc',
-    phone_number: 'useStateedited',
-    physical_address: 'edited',
-    description: 'edited',
-  });
-
-  const editedState = {
-    id: '00ultwew80Onb2vOT4x6',
-    seller_name: 'working',
-    email_address: 'llama002@maildrop.cc',
-    phone_number: 'working',
-    physical_address: 'working',
-    description: 'working',
-  };
 
   useEffect(() => {
     props.fetchMyInfo(authState);
   }, []);
 
   function clicked(event) {
-    // history.push('/myprofile/editinfo');
-    console.log('indexauthstate-', authState);
-    console.log('indexsellerform-', sellerForm);
-    props.editMyInfo(authState, sellerForm);
+    history.push('/myprofile/editinfo');
   }
 
   return (
@@ -58,6 +38,7 @@ function MyInfo(props) {
 const mapStateToProps = state => {
   return {
     myInfo: state.information.myInfo,
+    loading: state.information.fetchMyInfoStatus,
   };
 };
 

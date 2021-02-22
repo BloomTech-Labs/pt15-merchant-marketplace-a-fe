@@ -14,27 +14,11 @@ function EditInfo(props) {
     email_address: `${props.myInfo.email_address}`,
     phone_number: `${props.myInfo.phone_number}`,
     physical_address: `${props.myInfo.physical_address}`,
-    description: `${props.myInfo.physical_description}`,
-
-    // id: '00ultwew80Onb2vOT4x6',
-    // seller_name: '',
-    // email_address: '',
-    // phone_number: '',
-    // physical_address: '',
-    // description: ''
+    description: `${props.myInfo.description}`,
   });
 
-  // ({
-  //     id: '00ultwew80Onb2vOT4x6',
-  //     seller_name: 'useStateedited',
-  //     email_address: 'llama002@maildrop.cc',
-  //     phone_number: 'useStateedited',
-  //     physical_address: 'edited',
-  //     description: 'edited'
-  //   })
-
-  useEffect(async () => {
-    await props.fetchMyInfo(authState);
+  useEffect(() => {
+    props.fetchMyInfo(authState);
   }, []);
 
   function editForm(e) {
@@ -46,14 +30,12 @@ function EditInfo(props) {
   }
 
   function cancelEdit(e) {
-    history.goBack();
+    history.go(-1);
   }
 
   async function submitEdit(e) {
-    console.log('editauthstate-', authState);
-    console.log('editsellerform-', sellerForm);
     await props.editMyInfo(authState, sellerForm);
-    // history.push('/myprofile/myinfo');
+    history.push('/myprofile/myinfo');
   }
 
   return (
@@ -115,6 +97,7 @@ const mapStateToProps = state => {
   console.log('state in editInfo', state.information.myInfo);
   return {
     myInfo: state.information.myInfo,
+    loading: state.information.fetchMyInfoStatus,
   };
 };
 
