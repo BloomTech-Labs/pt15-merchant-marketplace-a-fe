@@ -185,9 +185,6 @@ const ProductInfo = ({ item }) => {
             Edit Item
           </Button>
           <Button onClick={cancelEdit} style={{ marginLeft: '2rem' }}>
-            Cancel
-          </Button>
-          <Button onClick={cancelEdit} style={{ marginLeft: '2rem' }}>
             Back to Inventory
           </Button>
         </div>
