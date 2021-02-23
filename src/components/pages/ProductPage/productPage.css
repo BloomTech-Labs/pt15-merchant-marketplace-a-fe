@@ -87,7 +87,39 @@ img {
 h3 {
     margin-left: 1%;
 }
-
+.categories-container{
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+.title{
+  color:#456CC0; 
+}
+.tag-title{
+  color:#456CC0; 
+  margin-right: 0.5rem;
+  margin-left: 1.3rem;
+}
+.dollars{
+  margin-left: 2rem;
+}
+.deleteBtn{
+  margin-left: 30%;
+  margin-top: 2rem;
+}
+.category-tag h3{
+  margin-left: inherit;
+}
+.published{
+  margin-left: 0.5rem;
+}
+.published-container{
+  margin-top: 1rem;
+}
+.myProductContents{
+  margin: 0 auto;
+   width: 40%;
+}
 
 
 @media only screen and (max-width: 600px) {

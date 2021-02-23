@@ -33,3 +33,20 @@ h1 {
 .supplement-detail{
     color: lightgray;
 }
+.choosen-categories{
+    display: flex;
+    max-width: 50%;
+    justify-content: space-between;
+}
+.delete{
+    cursor: pointer;
+}
+.category-warning{
+    color:red;
+}
+.modal-button{
+    margin-top: 5rem;
+}
+.newImg{
+    margin: 1rem;
+}
