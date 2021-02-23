@@ -110,7 +110,16 @@ h3 {
 .category-tag h3{
   margin-left: inherit;
 }
-
+.published{
+  margin-left: 0.5rem;
+}
+.published-container{
+  margin-top: 1rem;
+}
+.myProductContents{
+  margin: 0 auto;
+   width: 40%;
+}
 
 
 @media only screen and (max-width: 600px) {

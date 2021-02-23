@@ -6,22 +6,18 @@ const { Option } = Select;
 
 function NewItem({ setProgress, slider, setData }) {
   const [form] = Form.useForm();
-  const [checkedPublished, setCheckedPublished] = useState(false);
-  const [checkName, setCheckName] = useState('');
-
-  const handleCheckboxChange = e => {
-    setCheckedPublished(e.target.checked);
-    setCheckName(e.target.name);
-  };
 
   const onFinish = values => {
-    setData({ ...values, [checkName]: checkedPublished });
+    setData(values);
+  };
+  const onFinishFailed = errorInfo => {
+    console.log('Failed:', errorInfo);
   };
 
   return (
     <div className="contents">
       <h1>Main Information</h1>
-      <Form form={form} onFinish={onFinish}>
+      <Form form={form} onFinish={onFinish} onFinishFailed={onFinishFailed}>
         {/*======================Product Name========================== */}
         <Form.Item
           name="item_name"
@@ -48,7 +44,7 @@ function NewItem({ setProgress, slider, setData }) {
           <Input.TextArea placeholder="Short Description (Max 140 Characters)" />
         </Form.Item>
         {/*==============Price In Cents================ */}
-        <Form.Item name="price_in_cents" label="Price in cents: ">
+        <Form.Item name="price_in_cents" label="Price in cents: " required>
           <InputNumber
             placeholder="Price per item"
             min={1}
@@ -57,7 +53,11 @@ function NewItem({ setProgress, slider, setData }) {
           />
         </Form.Item>
         {/*================Quantity Available=============== */}
-        <Form.Item name="quantity_available" label="Quantity available: ">
+        <Form.Item
+          name="quantity_available"
+          label="Quantity available: "
+          required
+        >
           <InputNumber
             placeholder="quantity_available"
             min={0}
@@ -66,13 +66,14 @@ function NewItem({ setProgress, slider, setData }) {
           />
         </Form.Item>
         {/*===============Published================= */}
-        <Form.Item label="Published">
-          <Checkbox
-            required
-            name="published"
-            defaultValue={checkedPublished}
-            onChange={handleCheckboxChange}
-          ></Checkbox>
+        <Form.Item
+          label="Published"
+          name="published"
+          valuePropName="checked"
+          required
+          initialValue={false}
+        >
+          <Checkbox></Checkbox>
         </Form.Item>
 
         <FormButton
