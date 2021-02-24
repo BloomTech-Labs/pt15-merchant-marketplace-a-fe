@@ -22,6 +22,27 @@ function ItemCard({ name, description, price, image, count, published }) {
         console.log(errMessage);
       });
   };
+  const getCategory = id => {
+    getDSData(`${process.env.REACT_APP_API_URI}category/${id}`, authState)
+      .then(res => {
+        dispatch(getProductCategory(authState, id));
+        setCategories(res);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  };
+  const getTag = id => {
+    getDSData(`${process.env.REACT_APP_API_URI}tag/item/${id}`, authState)
+      .then(res => {
+        dispatch(getProductTag(authState, id));
+        setTags(res);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  };
+
   //<----------------Get Image---------------->
   const imgGet = id => {
     getDSData(`${process.env.REACT_APP_API_URI}photo/${id}`, authState)
@@ -32,19 +53,21 @@ function ItemCard({ name, description, price, image, count, published }) {
   };
   useEffect(() => {
     imgGet(image);
-    getElement(
-      image,
-      'category/',
-      setCategories,
-      'Category get fail in ItemCard'
-    );
-    getElement(image, 'tag/item/', setTags, 'Tag get fail in ItemCard');
+    getCategory(image);
+    getTag(image);
+    // getElement(
+    //   image,
+    //   'category/',
+    //   setCategories,
+    //   'Category get fail in ItemCard'
+    // );
+    // getElement(image, 'tag/item/', setTags, 'Tag get fail in ItemCard');
   }, []);
 
-  useEffect(() => {
-    dispatch(getProductCategory(authState, image));
-    dispatch(getProductTag(authState, image));
-  }, []);
+  // useEffect(() => {
+  //   dispatch(getProductCategory(authState, image));
+  //   dispatch(getProductTag(authState, image));
+  // }, []);
 
   return (
     <div className="cardContainer">

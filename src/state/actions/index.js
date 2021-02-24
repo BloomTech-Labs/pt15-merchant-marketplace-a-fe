@@ -93,7 +93,6 @@ export const fetchCategories = authState => dispatch => {
   dispatch({ type: FETCH_CATEGORIES_START });
   getDSData(`${process.env.REACT_APP_API_URI}category`, authState)
     .then(response => {
-      console.log('category', response);
       dispatch({ type: FETCH_CATEGORIES_SUCCESS, payload: response });
     })
     .catch(err => {
@@ -106,7 +105,6 @@ export const fetchTags = authState => dispatch => {
   dispatch({ type: FETCH_TAGS_START });
   getDSData(`${process.env.REACT_APP_API_URI}tag`, authState)
     .then(response => {
-      console.log('tag', response);
       dispatch({ type: FETCH_TAGS_SUCCESS, payload: response });
     })
     .catch(err => {
@@ -130,7 +128,6 @@ export const getProductTag = (authState, itemId) => dispatch => {
   dispatch({ type: GET_PRODUCT_TAG_START });
   getDSData(`${process.env.REACT_APP_API_URI}tag/item/${itemId}`, authState)
     .then(response => {
-      console.log('response', response);
       dispatch({ type: GET_PRODUCT_TAG_SUCCESS, payload: response });
     })
     .catch(err => {
@@ -254,7 +251,6 @@ export const deleteProduct = (itemId, authState) => dispatch => {
   dispatch({ type: DELETE_PRODUCT_START });
   deleteData(process.env.REACT_APP_API_URI + `items/${itemId}/`, authState)
     .then(response => {
-      console.log('delete item response.data', response.data);
       dispatch({ type: DELETE_PRODUCT_SUCCESS, payload: response.data });
     })
     .catch(error => {
