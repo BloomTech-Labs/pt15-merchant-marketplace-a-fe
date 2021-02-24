@@ -4,12 +4,14 @@ import { getDSData } from '../../../../api';
 import './itemCardStyles.css';
 import { Tag } from 'antd';
 import { MinusCircleOutlined, CheckCircleOutlined } from '@ant-design/icons';
-
+import { useDispatch } from 'react-redux';
+import { getProductCategory, getProductTag } from '../../../../state/actions';
 function ItemCard({ name, description, price, image, count, published }) {
   const [img, setImg] = useState('');
   const { authState } = useOktaAuth();
   const [categories, setCategories] = useState([]);
   const [tags, setTags] = useState([]);
+  const dispatch = useDispatch();
   let dollars = price / 100;
 
   //<----------------Get Element---------------->
@@ -37,6 +39,11 @@ function ItemCard({ name, description, price, image, count, published }) {
       'Category get fail in ItemCard'
     );
     getElement(image, 'tag/item/', setTags, 'Tag get fail in ItemCard');
+  }, []);
+
+  useEffect(() => {
+    dispatch(getProductCategory(authState, image));
+    dispatch(getProductTag(authState, image));
   }, []);
 
   return (

@@ -20,18 +20,15 @@ function SearchBar({ searchVisible, setData }) {
     setData(e.target.value);
   }
   function sortChange(value) {
-    console.log(`selected sortBy: ${value}`);
     setSrtChange(value);
   }
 
   function categoryChange(value) {
-    console.log(`selected category: ${value}`);
     let catValue = '&*$@category' + value;
     setData(catValue);
   }
 
   function tagChange(value) {
-    console.log(`selected tag: ${value}`);
     let tagValue = '&*$@tag' + value;
     setData(tagValue);
   }
@@ -56,14 +53,6 @@ function SearchBar({ searchVisible, setData }) {
     setData('$#&main');
   }
 
-  function sortChange(value) {
-    console.log(`selected sortBy: ${value}`);
-  }
-
-  function categoryChange(value) {
-    console.log(`selected category: ${value}`);
-  }
-
   useEffect(() => {
     if (searchVisible === false) {
       setInView('inView');
@@ -74,6 +63,7 @@ function SearchBar({ searchVisible, setData }) {
     <div className={inView}>
       <div className="searchOuter">
         <div className="searchBtns">
+          <Button onClick={mainChange}>Main</Button>
           <Button onClick={publishedChange}>Published</Button>
           <Button onClick={unPublishedChange}>Drafts</Button>
           <Button>Archives</Button>
