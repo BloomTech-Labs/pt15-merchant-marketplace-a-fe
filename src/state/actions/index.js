@@ -62,6 +62,14 @@ export const DELETE_PRODUCT_START = 'DELETE_PRODUCT_START';
 export const DELETE_PRODUCT_SUCCESS = 'DELETE_PRODUCT_SUCCESS';
 export const DELETE_PRODUCT_ERROR = 'DELETE_PRODUCT_ERROR';
 
+export const GET_PRODUCT_CATEGORY_START = 'GET_PRODUCT_CATEGORY_START';
+export const GET_PRODUCT_CATEGORY_SUCCESS = 'GET_PRODUCT_CATEGORY_SUCCESS';
+export const GET_PRODUCT_CATEGORY_ERROR = 'GET_PRODUCT_CATEGORY_ERROR';
+
+export const GET_PRODUCT_TAG_START = 'GET_PRODUCT_TAG_START';
+export const GET_PRODUCT_TAG_SUCCESS = 'GET_PRODUCT_TAG_SUCCESS';
+export const GET_PRODUCT_TAG_ERROR = 'GET_PRODUCT_TAG_ERROR';
+
 //=================FETCH====================
 //<------------fetchProducts--------------->
 export const fetchProducts = authState => dispatch => {
@@ -103,6 +111,30 @@ export const fetchTags = authState => dispatch => {
     })
     .catch(err => {
       dispatch({ type: FETCH_TAGS_ERROR, payload: err });
+    });
+};
+
+//<------------fetchProductCategory--------------->
+export const getProductCategory = (authState, itemId) => dispatch => {
+  dispatch({ type: GET_PRODUCT_CATEGORY_START });
+  getDSData(`${process.env.REACT_APP_API_URI}category/${itemId}`, authState)
+    .then(response => {
+      dispatch({ type: GET_PRODUCT_CATEGORY_SUCCESS, payload: response });
+    })
+    .catch(err => {
+      dispatch({ type: GET_PRODUCT_CATEGORY_ERROR, payload: err });
+    });
+};
+//<------------fetchProductTag--------------->
+export const getProductTag = (authState, itemId) => dispatch => {
+  dispatch({ type: GET_PRODUCT_TAG_START });
+  getDSData(`${process.env.REACT_APP_API_URI}tag/item/${itemId}`, authState)
+    .then(response => {
+      console.log('response', response);
+      dispatch({ type: GET_PRODUCT_TAG_SUCCESS, payload: response });
+    })
+    .catch(err => {
+      dispatch({ type: GET_PRODUCT_TAG_ERROR, payload: err });
     });
 };
 
