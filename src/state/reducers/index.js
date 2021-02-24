@@ -11,6 +11,8 @@ import addProductTagReducer from './addProductTagReducer';
 import tagsReducer from './tagsReducer';
 import deleteProductReducer from './deleteProductReducer';
 import editProductReducer from './editProductReducer';
+import getProductCategoryReducer from './getProductCategoryReducer';
+import getProductTagReducer from './getProductTagReducer';
 
 const reducers = combineReducers({
   products: productsReducer,
@@ -25,6 +27,8 @@ const reducers = combineReducers({
   tags: tagsReducer,
   deleteProduct: deleteProductReducer,
   editProduct: editProductReducer,
+  getProductCategory: getProductCategoryReducer,
+  getProductTag: getProductTagReducer,
 });
 
 export default reducers;
