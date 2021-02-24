@@ -14,14 +14,7 @@ function ItemCard({ name, description, price, image, count, published }) {
   const dispatch = useDispatch();
   let dollars = price / 100;
 
-  //<----------------Get Element---------------->
-  const getElement = (id, url, setState, errMessage) => {
-    getDSData(`${process.env.REACT_APP_API_URI}${url}${id}`, authState)
-      .then(res => setState(res))
-      .catch(err => {
-        console.log(errMessage);
-      });
-  };
+  //<----------------Get Category---------------->
   const getCategory = id => {
     getDSData(`${process.env.REACT_APP_API_URI}category/${id}`, authState)
       .then(res => {
@@ -32,6 +25,7 @@ function ItemCard({ name, description, price, image, count, published }) {
         console.log(err);
       });
   };
+  //<----------------Get Tag---------------->
   const getTag = id => {
     getDSData(`${process.env.REACT_APP_API_URI}tag/item/${id}`, authState)
       .then(res => {
@@ -55,19 +49,7 @@ function ItemCard({ name, description, price, image, count, published }) {
     imgGet(image);
     getCategory(image);
     getTag(image);
-    // getElement(
-    //   image,
-    //   'category/',
-    //   setCategories,
-    //   'Category get fail in ItemCard'
-    // );
-    // getElement(image, 'tag/item/', setTags, 'Tag get fail in ItemCard');
   }, []);
-
-  // useEffect(() => {
-  //   dispatch(getProductCategory(authState, image));
-  //   dispatch(getProductTag(authState, image));
-  // }, []);
 
   return (
     <div className="cardContainer">
