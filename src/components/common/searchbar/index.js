@@ -55,7 +55,7 @@ function SearchBar({ searchVisible, setData }) {
           placeholder="Search through your inventory"
           className="searchBar"
           onSearch={onSearch}
-          onChange={onChange}
+          onChange={e => onSearch(e.target.value)}
           name="searchItem"
           initialValue=""
         />
