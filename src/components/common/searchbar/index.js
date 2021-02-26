@@ -11,9 +11,6 @@ function SearchBar({ searchVisible, setData }) {
   function onSearch(values) {
     setData(values);
   }
-  function onChange(e) {
-    setData(e.target.value);
-  }
 
   function publishedChange() {
     setData('$#&published');
