@@ -49,7 +49,7 @@ function ItemCard({ name, description, price, image, count, published }) {
       {loading ? (
         <Skeleton.Image active className="cardImage" />
       ) : (
-        <img src={img} className="cardImage" alt="product image" />
+        <img src={img} className="cardImage" alt="product for sell" />
       )}
 
       <div className="cardDesc">
