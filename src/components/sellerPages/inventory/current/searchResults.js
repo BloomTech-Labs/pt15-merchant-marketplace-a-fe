@@ -1,5 +1,4 @@
 import React, { lazy, Suspense } from 'react';
-// import ItemCard from '../../../common/cards/normalItem';
 import LoadingProductCard from '../../../common/cards/normalItem/LoadingProductCard';
 import useSearch from '../../../common/customHooks/useSearch';
 import { NavLink } from 'react-router-dom';
